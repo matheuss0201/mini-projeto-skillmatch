@@ -18,21 +18,23 @@ class VagaFrontEnd extends Vaga {
 const vagasDisponiveis = [
     new VagaFrontEnd(1, "Vaga A (Foco em React)", ["HTML", "CSS", "JavaScript", "React", "Git"]),
     new VagaFrontEnd(2, "Vaga B (Foco em Design/UI)", ["HTML", "CSS", "JavaScript", "Tailwind", "Figma"]),
-    new VagaFrontEnd(3, "Vaga C (Foco em Backend)", ["HTML", "CSS", "JavaScript", "Node.js", "TypeScript"])
+    new VagaFrontEnd(3, "Vaga C (Foco em Java)", ["HTML", "CSS", "JavaScript", "Node.js", "TypeScript"])
 ];
 
 const listaCandidatos = [
     {
-        nome: "Lucas Silva",
+        nome: "matheus alves",
+        mora: "joiville",
         habilidades: ["HTML", "CSS", "JavaScript", "Git"],
         estaAtivo: true,
         anosExperiencia: 0
     },
     {
         nome: "Ana Costa",
+        mora: "são paulo",
         habilidades: ["HTML", "CSS", "JavaScript", "Tailwind", "React"],
         estaAtivo: true,
-        anosExperiencia: 1
+        anosExperiencia: 2
     }
 ];
 
