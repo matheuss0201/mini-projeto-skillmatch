@@ -1,70 +1,51 @@
-
-class Vaga {
-    constructor(id, titulo, requisitos) {
-        this.id = id;
-        this.titulo = titulo;
-        this.requisitos = requisitos; 
-    }
-}
-
-class VagaFrontEnd extends Vaga {
-    constructor(id, titulo, requisitos, nivel = "Júnior") {
-        super(id, titulo, requisitos);
-        this.nivel = nivel; 
-    }
-}
-
-
-const vagasDisponiveis = [
-    new VagaFrontEnd(1, "Vaga A (Foco em React)", ["HTML", "CSS", "JavaScript", "React", "Git"]),
-    new VagaFrontEnd(2, "Vaga B (Foco em Design/UI)", ["HTML", "CSS", "JavaScript", "Tailwind", "Figma"]),
-    new VagaFrontEnd(3, "Vaga C (Foco em Java)", ["HTML", "CSS", "JavaScript", "Node.js", "TypeScript"])
-];
-
-const listaCandidatos = [
-    {
-        nome: "matheus alves",
-        mora: "joiville",
-        habilidades: ["HTML", "CSS", "JavaScript", "Git"],
-        estaAtivo: true,
-        anosExperiencia: 0
-    },
-    {
-        nome: "Ana Costa",
-        mora: "são paulo",
-        habilidades: ["HTML", "CSS", "JavaScript", "Tailwind", "React"],
-        estaAtivo: true,
-        anosExperiencia: 2
-    }
-];
-
-
-//  USO DE CLOSURE E CALLBACK
 function criarContadorAnalises() {
-    let contagem = 0;
+    let totalAnalises = 0; 
     return function() {
-        contagem += 1; 
-        return contagem;
+        totalAnalises++;
+        return totalAnalises;
     };
 }
-const incrementarContador = criarContadorAnalises();
+const contarAnalise = criarContadorAnalises();
 
-function formatarMensagem(texto, callback) {
-    return callback(texto);
+//CLASSE PRINCIPAL E USO DO 'THIS'
+class Vaga {
+    constructor(empresa, cargo, requisitos) {
+        this.empresa = empresa;
+        this.cargo = cargo;
+        this.requisitos = requisitos; 
+    }
+
+
+    exibirResumo() {
+        return `Vaga para ${this.cargo} na empresa ${this.empresa}.`;
+    }
 }
-const callbackCaixaAlta = (txt) => txt.toUpperCase();
 
 
-//  PROMISE E ASYNC/AWAIT
+class VagaFrontEnd extends Vaga {
+    constructor(empresa, cargo, requisitos, regimeTrabalho) {
+        super(empresa, cargo, requisitos); 
+        this.regimeTrabalho = regimeTrabalho; 
+    }
+}
 
-function buscarDadosVagasPro() {
-    return new Promise((resolve, reject) => {
+
+function processarRecomendacao(candidato, callback) {
+    return callback(candidato);
+}
+
+
+const buscarDadosDoServidor = () => {
+    return new Promise((resolve) => {
         setTimeout(() => {
-            if (vagasDisponiveis.length > 0) {
-                resolve(vagasDisponiveis);
-            } else {
-                reject("Nenhuma vaga encontrada no sistema.");
-            }
-        }, 1000);
+            
+            const candidato = {
+                nome: "Matheus alves ",
+                areaDeInteresse: "Front-End",
+                skills: ["HTML", "CSS", "JavaScript", "React"],
+                tempoExperiencia: "6 meses"
+            };
+            resolve(candidato);
+        }, 3000); 
     });
-}
+};
