@@ -1,3 +1,6 @@
+
+
+
 function criarContadorAnalises() {
     let totalAnalises = 0; 
     return function() {
@@ -51,34 +54,34 @@ const buscarDadosDoServidor = () => {
 };
 // FUNÇÃO PRINCIPAL ASSÍNCRONA
 async function executarSistema() {
-    console.log("Carregando motor de análise de currículos...");
+    console.log("Carregando motor de análise de currículos.......");
     
     // Aguarda a simulação da Promise
     const candidato = await buscarDadosDoServidor();
     
     
     const listaVagas = [
-        new VagaFrontEnd("TechCorp", "Front-End Júnior", ["HTML", "CSS", "JavaScript", "React"], "Remoto"),
+        new VagaFrontEnd("Totvs", "Front-End Júnior", ["HTML", "CSS", "JavaScript", "React"], "Remoto"),
         new VagaFrontEnd("DevSoft", "Front-End Júnior", ["HTML", "CSS", "JavaScript", "TypeScript", "Vue"], "Híbrido"),
         new VagaFrontEnd("WebStyle", "Front-End Júnior", ["HTML", "CSS", "JavaScript", "Tailwind", "Next.js"], "Presencial")
     ];
 
     console.log(`\nIniciando análise para: ${candidato.nome}`);
 
-    // MÉTODOS DE ARRAY (RF08: Utiliza map, filter e reduce) 
+    
     const resultados = listaVagas.map((vaga) => {
         
-        // RF05: Encontrar habilidades faltantes (usando filter)
+        
         const skillsFaltantes = vaga.requisitos.filter(
             skill => !candidato.skills.includes(skill)
         );
 
-        // RF03: Calcular percentual de compatibilidade (Regra: proporcional ao número de requisitos)
+        
         const totalRequisitos = vaga.requisitos.length;
         const correspondidas = totalRequisitos - skillsFaltantes.length;
         const percentual = Math.round((correspondidas / totalRequisitos) * 100); 
 
-        // RF04: Classificar compatibilidade usando Estrutura de Decisão (if-else)
+        
         let classificacao = "";
         if (percentual >= 80) {
             classificacao = "Alta compatibilidade";
@@ -96,11 +99,39 @@ async function executarSistema() {
         };
     });
 
-    // Exibição dos resultados individuais no console
+    
     resultados.forEach(res => {
         console.log(`\n--- ${res.vaga.exibirResumo()} ---`);
         console.log(`Compatibilidade: ${res.percentual}% (${res.classificacao})`);
         console.log(`Habilidades Faltantes: ${res.skillsFaltantes.join(", ") || "Nenhuma!"}`);
     });
 
+ 
+    const melhorVaga = resultados.reduce((maior, atual) => {
+        return atual.percentual > maior.percentual ? atual : maior;
+    });
+
+    console.log(`\n=================================`);
+    console.log(`VAGA COM MAIOR COMPATIBILIDADE:`);
+    console.log(`${melhorVaga.vaga.empresa} (${melhorVaga.percentual}%)`);
+    console.log(`=================================`);
+
+    //Gerar uma recomendação de estudo baseada na melhor vaga
+    const recomendacao = processarRecomendacao(melhorVaga, (dados) => {
+        if (dados.skillsFaltantes.length === 0) {
+            return "Parabéns! Você cumpre todos os requisitos. Candidate-se imediatamente!";
+        }
+        
+        return `Estude prioritariamente a tecnologia: [ ${dados.skillsFaltantes[0]} ] para se adequar à vaga da ${dados.vaga.empresa}.`;
+    });
+
+    console.log(`Recomendação: ${recomendacao}`);
+
+//  (provando a Closure)
+    console.log(`\nAnálise número: ${contarAnalise()}`);
 }
+
+
+executarSistema();
+
+
