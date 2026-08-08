@@ -2,7 +2,7 @@
 
 Este projeto é um motor de análise e triagem automatizada de currículos para vagas de tecnologia Front-End Júnior, desenvolvido em JavaScript Puro.
 
-#  Regras de Negócio e Critérios
+#    Regras de Negócio e Critérios
 
 # - Cálculo de Compatibilidade
 A regra de cálculo é consistente para todas as vagas e baseia-se na proporção de habilidades dominadas pelo candidato em relação aos requisitos totais da vaga:
